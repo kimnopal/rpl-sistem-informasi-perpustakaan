@@ -1,5 +1,5 @@
 # Tugas RPL Sistem Informasi Perpustakaan
-# Anggota :
+Anggota :
 - MUHAMMAD RAFI HABIBI
 - M. SAUJANA SHAFI KEHAULANI
 - BAGUS SYAFIQ F
