@@ -1,0 +1,507 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Use Case Diagram - Use Case Diagram1</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		sistem_informasi_perpustakaan	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Use Case Diagram - Use Case Diagram1		</span>
+<a onclick="javascript: showVpLink('sistem_informasi_perpustakaan.vpp://diagram/cPLmxdGFS_jEJguI', 'Use Case Diagram1\nsistem_informasi_perpustakaan.vpp://diagram/cPLmxdGFS_jEJguI', 'Use Case Diagram1', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|348.0|2.0|558.0|770.0|System_MRzRxdGFS_jEJg51.html|System_MRzRxdGFS_jEJg51.html|0RzRxdGFS_jEJg50" id="option0RzRxdGFS_jEJg50">System : System</option>
+<option value="shape|141.0|324.0|30.0|60.0|Actor_UznmxdGFS_jEJgub.html|Actor_UznmxdGFS_jEJgub.html|UznmxdGFS_jEJgua" id="optionUznmxdGFS_jEJgua">Peminjam : Actor</option>
+<option value="shape|968.0|324.0|30.0|60.0|Actor_GyPmxdGFS_jEJgum.html|Actor_GyPmxdGFS_jEJgum.html|6yPmxdGFS_jEJgul" id="option6yPmxdGFS_jEJgul">Petugas : Actor</option>
+<option value="shape|25.0|481.0|30.0|60.0|Actor_gPORxdGFS_jEJg4j.html|Actor_gPORxdGFS_jEJg4j.html|gPORxdGFS_jEJg4i" id="optiongPORxdGFS_jEJg4i">Mahasiswa : Actor</option>
+<option value="shape|125.0|481.0|30.0|60.0|Actor_3DeRxdGFS_jEJg4s.html|Actor_3DeRxdGFS_jEJg4s.html|3DeRxdGFS_jEJg4r" id="option3DeRxdGFS_jEJg4r">Dosen : Actor</option>
+<option value="shape|225.0|481.0|30.0|60.0|Actor_CwBRxdGFS_jEJg41.html|Actor_CwBRxdGFS_jEJg41.html|CwBRxdGFS_jEJg40" id="optionCwBRxdGFS_jEJg40">Staff : Actor</option>
+<option value="shape|444.0|45.0|182.0|59.0|UseCase_oJ0WxdGFS_jEJgu8.html|UseCase_oJ0WxdGFS_jEJgu8.html|oJ0WxdGFS_jEJgu7" id="optionoJ0WxdGFS_jEJgu7">login : Use Case</option>
+<option value="shape|495.0|135.0|80.0|40.0|UseCase_xzmWxdGFS_jEJgvY.html|UseCase_xzmWxdGFS_jEJgvY.html|xzmWxdGFS_jEJgvX" id="optionxzmWxdGFS_jEJgvX">logout : Use Case</option>
+<option value="shape|491.0|206.0|88.0|40.0|UseCase_h_eWxdGFS_jEJgvy.html|UseCase_h_eWxdGFS_jEJgvy.html|h.eWxdGFS_jEJgvx" id="optionh.eWxdGFS_jEJgvx">search buku : Use Case</option>
+<option value="shape|491.0|277.0|88.0|40.0|UseCase_cRC_xdGFS_jEJgwu.html|UseCase_cRC_xdGFS_jEJgwu.html|cRC.xdGFS_jEJgwt" id="optioncRC.xdGFS_jEJgwt">meminjam buku : Use Case</option>
+<option value="shape|477.0|348.0|115.0|40.0|UseCase_ndS_xdGFS_jEJgxC.html|UseCase_ndS_xdGFS_jEJgxC.html|ndS.xdGFS_jEJgxB" id="optionndS.xdGFS_jEJgxB">mengembalikan buku : Use Case</option>
+<option value="shape|473.0|490.0|127.0|40.0|UseCase_8NJ_xdGFS_jEJgyq.html|UseCase_8NJ_xdGFS_jEJgyq.html|8NJ.xdGFS_jEJgyp" id="option8NJ.xdGFS_jEJgyp">memperbarui data buku : Use Case</option>
+<option value="shape|480.0|418.0|113.0|40.0|UseCase_QZWBxdGFS_jEJgz3.html|UseCase_QZWBxdGFS_jEJgz3.html|QZWBxdGFS_jEJgz2" id="optionQZWBxdGFS_jEJgz2">menginput data buku : Use Case</option>
+<option value="shape|476.0|561.0|119.0|40.0|UseCase_JzuBxdGFS_jEJg0J.html|UseCase_JzuBxdGFS_jEJg0J.html|JzuBxdGFS_jEJg0I" id="optionJzuBxdGFS_jEJg0I">menghapus data buku : Use Case</option>
+<option value="shape|458.0|632.0|154.0|40.0|UseCase_oP1BxdGFS_jEJg0v.html|UseCase_oP1BxdGFS_jEJg0v.html|oP1BxdGFS_jEJg0u" id="optionoP1BxdGFS_jEJg0u">menyetujui peminjaman buku : Use Case</option>
+<option value="shape|460.0|703.0|152.0|40.0|UseCase_0bLBxdGFS_jEJg1D.html|UseCase_0bLBxdGFS_jEJg1D.html|0bLBxdGFS_jEJg1C" id="option0bLBxdGFS_jEJg1C">verifikasi pengembalian buku : Use Case</option>
+<option value="shape|689.0|36.0|135.0|40.0|UseCase_xjchxdGFS_jEJg1h.html|UseCase_xjchxdGFS_jEJg1h.html|xjchxdGFS_jEJg1g" id="optionxjchxdGFS_jEJg1g">verifikasi email dan password : Use Case</option>
+<option value="shape|689.0|115.0|135.0|40.0|UseCase_92yhxdGFS_jEJg1z.html|UseCase_92yhxdGFS_jEJg1z.html|92yhxdGFS_jEJg1y" id="option92yhxdGFS_jEJg1y">menampilkan pesan login eror : Use Case</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Use_Case_Diagram1.png" usemap="#diagram_map" class="Image" width="1018" height="776"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="626.0, 52.0, 626.0, 66.0, 689.0, 66.0, 689.0, 52.0" coords2="626.0, 52.0, 626.0, 66.0, 689.0, 66.0, 689.0, 52.0" shape="poly" alt=":Include" id="areadiagram_map_Yg5hxdGFS_jEJg2e_default" href="Include_PA5hxdGFS_jEJg2c.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="626.0, 96.37143, 626.0, 104.0, 586.8333, 104.0, 689.0, 121.51428, 689.0, 121.51428, 689.0, 115.0, 722.7143, 115.0, 723.0, 113.0, 626.0, 96.37143" coords2="626.0, 96.37143, 626.0, 104.0, 586.8333, 104.0, 689.0, 121.51428, 689.0, 121.51428, 689.0, 115.0, 722.7143, 115.0, 723.0, 113.0, 626.0, 96.37143" shape="poly" alt=":Extend" id="areadiagram_map_GXNhxdGFS_jEJg23_default" href="Extend_sXNhxdGFS_jEJg21.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="120.0, 388.0, 45.40625, 481.0, 55.0, 481.0, 55.0, 491.75323, 55.0, 491.75323, 131.0, 397.0, 120.0, 388.0" coords2="120.0, 388.0, 45.40625, 481.0, 55.0, 481.0, 55.0, 491.75323, 55.0, 491.75323, 131.0, 397.0, 120.0, 388.0" shape="poly" alt=":Generalization" id="areadiagram_map_vrtRxdGFS_jEJg5b_default" href="Generalization_zrtRxdGFS_jEJg5a.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="142.0, 391.0, 142.0, 481.0, 155.0, 481.0, 155.0, 490.0, 156.0, 490.0, 156.0, 391.0" coords2="142.0, 391.0, 142.0, 481.0, 155.0, 481.0, 155.0, 490.0, 156.0, 490.0, 156.0, 391.0" shape="poly" alt=":Generalization" id="areadiagram_map_mVdRxdGFS_jEJg5f_default" href="Generalization_8VdRxdGFS_jEJg5e.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="197.0, 390.0, 183.0, 394.0, 220.0, 491.0, 225.0, 489.92856, 225.0, 489.92856, 225.0, 481.0, 231.35715, 481.0, 197.0, 390.0" coords2="197.0, 390.0, 183.0, 394.0, 220.0, 491.0, 225.0, 489.92856, 225.0, 489.92856, 225.0, 481.0, 231.35715, 481.0, 197.0, 390.0" shape="poly" alt=":Generalization" id="areadiagram_map_UV9RxdGFS_jEJg5j_default" href="Generalization_AV9RxdGFS_jEJg5i.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="444.0, 94.63158, 171.0, 331.71054, 171.0, 350.5263, 454.87878, 104.0, 444.0, 104.0, 444.0, 94.63158" coords2="444.0, 94.63158, 171.0, 331.71054, 171.0, 350.5263, 454.87878, 104.0, 444.0, 104.0, 444.0, 94.63158" shape="poly" alt=":Generic Connector" id="areadiagram_map_LvwxxdGFS_jEJg6S_default" href="GenericConnector_VvwxxdGFS_jEJg6R.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="495.0, 166.87253, 171.0, 326.5779, 171.0, 326.5779, 171.0, 342.04248, 509.88507, 175.0, 495.0, 175.0, 495.0, 166.87253" coords2="495.0, 166.87253, 171.0, 326.5779, 171.0, 326.5779, 171.0, 342.04248, 509.88507, 175.0, 495.0, 175.0, 495.0, 166.87253" shape="poly" alt=":Generic Connector" id="areadiagram_map_ZCoxxdGFS_jEJg6W_default" href="GenericConnector_uCoxxdGFS_jEJg6V.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="491.0, 238.0595, 164.7957, 324.0, 171.0, 324.0, 171.0, 337.41476, 171.0, 337.41476, 517.0, 246.0, 491.0, 246.0, 491.0, 238.0595" coords2="491.0, 238.0595, 164.7957, 324.0, 171.0, 324.0, 171.0, 337.41476, 171.0, 337.41476, 517.0, 246.0, 491.0, 246.0, 491.0, 238.0595" shape="poly" alt=":Generic Connector" id="areadiagram_map_MhYxxdGFS_jEJg6a_default" href="GenericConnector_whYxxdGFS_jEJg6Z.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="491.0, 309.9946, 161.0, 318.0, 161.0, 324.0, 171.0, 324.0, 171.0, 331.75742, 171.0, 331.75742, 532.0, 323.0, 532.0, 317.0, 491.0, 317.0, 491.0, 309.9946" coords2="491.0, 309.9946, 161.0, 318.0, 161.0, 324.0, 171.0, 324.0, 171.0, 331.75742, 171.0, 331.75742, 532.0, 323.0, 532.0, 317.0, 491.0, 317.0, 491.0, 309.9946" shape="poly" alt=":Generic Connector" id="areadiagram_map_vj4xxdGFS_jEJg6e_default" href="GenericConnector_Lj4xxdGFS_jEJg6d.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="171.0, 348.0, 171.0, 362.0, 477.0, 362.0, 477.0, 348.0" coords2="171.0, 348.0, 171.0, 362.0, 477.0, 362.0, 477.0, 348.0" shape="poly" alt=":Generic Connector" id="areadiagram_map_9QkxxdGFS_jEJg6i_default" href="GenericConnector_pQkxxdGFS_jEJg6h.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="961.0, 394.0, 549.0, 413.0, 549.0, 418.0, 593.0, 418.0, 593.0, 424.9709, 961.0, 408.0, 961.0, 394.0" coords2="961.0, 394.0, 549.0, 413.0, 549.0, 418.0, 593.0, 418.0, 593.0, 424.9709, 961.0, 408.0, 961.0, 394.0" shape="poly" alt=":Generic Connector" id="areadiagram_map_W_CxxdGFS_jEJg6r_default" href="GenericConnector_i_CxxdGFS_jEJg6q.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="958.0, 392.0, 570.0, 489.0, 570.1429, 490.0, 600.0, 490.0, 600.0, 496.0, 960.0, 406.0, 958.0, 392.0" coords2="958.0, 392.0, 570.0, 489.0, 570.1429, 490.0, 600.0, 490.0, 600.0, 496.0, 960.0, 406.0, 958.0, 392.0" shape="poly" alt=":Generic Connector" id="areadiagram_map_6RSxxdGFS_jEJg6v_default" href="GenericConnector_sRSxxdGFS_jEJg6u.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="957.0, 390.0, 576.8914, 561.0, 595.0, 561.0, 595.0, 568.10284, 962.0, 403.0, 957.0, 390.0" coords2="957.0, 390.0, 576.8914, 561.0, 595.0, 561.0, 595.0, 568.10284, 962.0, 403.0, 957.0, 390.0" shape="poly" alt=":Generic Connector" id="areadiagram_map_kJyxxdGFS_jEJg6z_default" href="GenericConnector__xyxxdGFS_jEJg6y.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="954.0, 390.0, 598.2892, 632.0, 612.0, 632.0, 612.0, 639.11475, 962.0, 401.0, 954.0, 390.0" coords2="954.0, 390.0, 598.2892, 632.0, 612.0, 632.0, 612.0, 639.11475, 962.0, 401.0, 954.0, 390.0" shape="poly" alt=":Generic Connector" id="areadiagram_map__rKxxdGFS_jEJg63_default" href="GenericConnector_brKxxdGFS_jEJg62.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="952.0, 389.0, 601.17285, 703.0, 612.0, 703.0, 612.0, 712.25964, 962.0, 399.0, 952.0, 389.0" coords2="952.0, 389.0, 601.17285, 703.0, 612.0, 703.0, 612.0, 712.25964, 962.0, 399.0, 952.0, 389.0" shape="poly" alt=":Generic Connector" id="areadiagram_map_ewaxxdGFS_jEJg67_default" href="GenericConnector_qwaxxdGFS_jEJg66.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="225, 481, 255, 541" coords2="225, 481, 255, 541" shape="rect" alt="Staff:Actor" id="areadiagram_map_CwBRxdGFS_jEJg40_default" href="Actor_CwBRxdGFS_jEJg41.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="125, 481, 155, 541" coords2="125, 481, 155, 541" shape="rect" alt="Dosen:Actor" id="areadiagram_map_3DeRxdGFS_jEJg4r_default" href="Actor_3DeRxdGFS_jEJg4s.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="25, 481, 55, 541" coords2="25, 481, 55, 541" shape="rect" alt="Mahasiswa:Actor" id="areadiagram_map_gPORxdGFS_jEJg4i_default" href="Actor_gPORxdGFS_jEJg4j.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="689, 115, 824, 155" coords2="689, 115, 824, 155" shape="rect" alt="menampilkan pesan login eror:Use Case" id="areadiagram_map_92yhxdGFS_jEJg1y_default" href="UseCase_92yhxdGFS_jEJg1z.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="689, 36, 824, 76" coords2="689, 36, 824, 76" shape="rect" alt="verifikasi email dan password:Use Case" id="areadiagram_map_xjchxdGFS_jEJg1g_default" href="UseCase_xjchxdGFS_jEJg1h.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="460, 703, 612, 743" coords2="460, 703, 612, 743" shape="rect" alt="verifikasi pengembalian buku:Use Case" id="areadiagram_map_0bLBxdGFS_jEJg1C_default" href="UseCase_0bLBxdGFS_jEJg1D.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="458, 632, 612, 672" coords2="458, 632, 612, 672" shape="rect" alt="menyetujui peminjaman buku:Use Case" id="areadiagram_map_oP1BxdGFS_jEJg0u_default" href="UseCase_oP1BxdGFS_jEJg0v.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="476, 561, 595, 601" coords2="476, 561, 595, 601" shape="rect" alt="menghapus data buku:Use Case" id="areadiagram_map_JzuBxdGFS_jEJg0I_default" href="UseCase_JzuBxdGFS_jEJg0J.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="480, 418, 593, 458" coords2="480, 418, 593, 458" shape="rect" alt="menginput data buku:Use Case" id="areadiagram_map_QZWBxdGFS_jEJgz2_default" href="UseCase_QZWBxdGFS_jEJgz3.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="473, 490, 600, 530" coords2="473, 490, 600, 530" shape="rect" alt="memperbarui data buku:Use Case" id="areadiagram_map_8NJ.xdGFS_jEJgyp_default" href="UseCase_8NJ_xdGFS_jEJgyq.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="477, 348, 592, 388" coords2="477, 348, 592, 388" shape="rect" alt="mengembalikan buku:Use Case" id="areadiagram_map_ndS.xdGFS_jEJgxB_default" href="UseCase_ndS_xdGFS_jEJgxC.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="491, 277, 579, 317" coords2="491, 277, 579, 317" shape="rect" alt="meminjam buku:Use Case" id="areadiagram_map_cRC.xdGFS_jEJgwt_default" href="UseCase_cRC_xdGFS_jEJgwu.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="491, 206, 579, 246" coords2="491, 206, 579, 246" shape="rect" alt="search buku:Use Case" id="areadiagram_map_h.eWxdGFS_jEJgvx_default" href="UseCase_h_eWxdGFS_jEJgvy.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="495, 135, 575, 175" coords2="495, 135, 575, 175" shape="rect" alt="logout:Use Case" id="areadiagram_map_xzmWxdGFS_jEJgvX_default" href="UseCase_xzmWxdGFS_jEJgvY.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="444, 45, 626, 104" coords2="444, 45, 626, 104" shape="rect" alt="login:Use Case" id="areadiagram_map_oJ0WxdGFS_jEJgu7_default" href="UseCase_oJ0WxdGFS_jEJgu8.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="968, 324, 998, 384" coords2="968, 324, 998, 384" shape="rect" alt="Petugas:Actor" id="areadiagram_map_6yPmxdGFS_jEJgul_default" href="Actor_GyPmxdGFS_jEJgum.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="141, 324, 171, 396.0" coords2="141, 324, 171, 396.0" shape="rect" alt="Peminjam:Actor" id="areadiagram_map_UznmxdGFS_jEJgua_default" href="Actor_UznmxdGFS_jEJgub.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','141, 324, 171, 384',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('InteractionDiagram_Jh0bxdGGAqACHQ1s.html?shapeid=DtcbxdGGAqACHQ2J/Peminjam/Actor')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '141, 324, 171, 384')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="348, 2, 906, 772" coords2="348, 2, 906, 772" shape="rect" alt="System:System" id="areadiagram_map_0RzRxdGFS_jEJg50_default" href="System_MRzRxdGFS_jEJg51.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/System.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/System.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="System_MRzRxdGFS_jEJg51.html" class="ItemLink">System : System</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_UznmxdGFS_jEJgub.html" class="ItemLink">Peminjam : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_GyPmxdGFS_jEJgum.html" class="ItemLink">Petugas : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_gPORxdGFS_jEJg4j.html" class="ItemLink">Mahasiswa : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_3DeRxdGFS_jEJg4s.html" class="ItemLink">Dosen : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_CwBRxdGFS_jEJg41.html" class="ItemLink">Staff : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_oJ0WxdGFS_jEJgu8.html" class="ItemLink">login : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_xzmWxdGFS_jEJgvY.html" class="ItemLink">logout : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_h_eWxdGFS_jEJgvy.html" class="ItemLink">search buku : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_cRC_xdGFS_jEJgwu.html" class="ItemLink">meminjam buku : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_ndS_xdGFS_jEJgxC.html" class="ItemLink">mengembalikan buku : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_8NJ_xdGFS_jEJgyq.html" class="ItemLink">memperbarui data buku : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_QZWBxdGFS_jEJgz3.html" class="ItemLink">menginput data buku : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_JzuBxdGFS_jEJg0J.html" class="ItemLink">menghapus data buku : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_oP1BxdGFS_jEJg0v.html" class="ItemLink">menyetujui peminjaman buku : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_0bLBxdGFS_jEJg1D.html" class="ItemLink">verifikasi pengembalian buku : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_xjchxdGFS_jEJg1h.html" class="ItemLink">verifikasi email dan password : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_92yhxdGFS_jEJg1z.html" class="ItemLink">menampilkan pesan login eror : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		sistem_informasi_perpustakaan	</div>
+</body>
+</html>

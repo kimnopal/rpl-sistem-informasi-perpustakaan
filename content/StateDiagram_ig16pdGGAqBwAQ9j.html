@@ -1,0 +1,477 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>State Machine Diagram - sistem informasi perpustakaan</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		sistem_informasi_perpustakaan	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			State Machine Diagram - sistem informasi perpustakaan		</span>
+<a onclick="javascript: showVpLink('sistem_informasi_perpustakaan.vpp://diagram/ig16pdGGAqBwAQ9j', 'sistem informasi perpustakaan\nsistem_informasi_perpustakaan.vpp://diagram/ig16pdGGAqBwAQ9j', 'sistem informasi perpustakaan', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|375.0|99.0|112.0|112.0|ShapeEditorShape_gl9lpdGGAqBwARfB.html|ShapeEditorShape_gl9lpdGGAqBwARfB.html|gl9lpdGGAqBwARfA" id="optiongl9lpdGGAqBwARfA">Unnamed Freehand Shape : Freehand Shape</option>
+<option value="shape|635.0|396.0|80.0|55.0|State2_xSUFpdGGAqBwARcy.html|State2_xSUFpdGGAqBwARcy.html|xSUFpdGGAqBwARcx" id="optionxSUFpdGGAqBwARcx">buku dikembalikan : State</option>
+<option value="shape|347.0|397.0|80.0|40.0|State2_27kFpdGGAqBwARcp.html|State2_27kFpdGGAqBwARcp.html|27kFpdGGAqBwARco" id="option27kFpdGGAqBwARco">edit data buku : State</option>
+<option value="shape|505.0|389.0|80.0|55.0|State2_Q6kFpdGGAqBwARcg.html|State2_Q6kFpdGGAqBwARcg.html|Q6kFpdGGAqBwARcf" id="optionQ6kFpdGGAqBwARcf">buku dipinjamkan : State</option>
+<option value="shape|989.0|389.0|80.0|55.0|State2_T9e5pdGGAqBwARaO.html|State2_T9e5pdGGAqBwARaO.html|T9e5pdGGAqBwARaN" id="optionT9e5pdGGAqBwARaN">pesan buku tidak tersedia : State</option>
+<option value="shape|777.0|518.0|81.0|46.0|State2_LvE5pdGGAqBwARZp.html|State2_LvE5pdGGAqBwARZp.html|LvE5pdGGAqBwARZo" id="optionLvE5pdGGAqBwARZo">konfirmasi peminjaman buku : State</option>
+<option value="shape|778.0|382.0|80.0|55.0|State2_fN_ZpdGGAqBwARZe.html|State2_fN_ZpdGGAqBwARZe.html|fN_ZpdGGAqBwARZd" id="optionfN_ZpdGGAqBwARZd">ID buku ditemukan : State</option>
+<option value="shape|500.0|96.0|90.0|73.0|Choice_xVCZpdGGAqBwARX7.html|Choice_xVCZpdGGAqBwARX7.html|xVCZpdGGAqBwARX6" id="optionxVCZpdGGAqBwARX6">validasi : Choice</option>
+<option value="shape|562.0|123.0|14.0|124.0|ShapeEditorShape_Jv_ppdGGAqBwARMG.html|ShapeEditorShape_Jv_ppdGGAqBwARMG.html|Jv.ppdGGAqBwARMF" id="optionJv.ppdGGAqBwARMF">Unnamed Freehand Shape : Freehand Shape</option>
+<option value="shape|510.0|2.0|80.0|40.0|State2__5AJpdGGAqBwARES.html|State2__5AJpdGGAqBwARES.html|_5AJpdGGAqBwARER" id="option_5AJpdGGAqBwARER">invalid login : State</option>
+<option value="shape|227.0|112.0|80.0|40.0|State2__GHxpdGGAqBwARDp.html|State2__GHxpdGGAqBwARDp.html|.GHxpdGGAqBwARDo" id="option.GHxpdGGAqBwARDo">login : State</option>
+<option value="shape|505.0|284.0|80.0|40.0|State2_z2yxpdGGAqBwARB9.html|State2_z2yxpdGGAqBwARB9.html|z2yxpdGGAqBwARB8" id="optionz2yxpdGGAqBwARB8">admin : State</option>
+<option value="shape|778.0|284.0|80.0|40.0|State2_LsSxpdGGAqBwARB0.html|State2_LsSxpdGGAqBwARB0.html|LsSxpdGGAqBwARBz" id="optionLsSxpdGGAqBwARBz">user : State</option>
+<option value="shape|216.0|531.0|20.0|20.0|FinalState2_TELRpdGGAqBwAQ_t.html|FinalState2_TELRpdGGAqBwAQ_t.html|TELRpdGGAqBwAQ_s" id="optionTELRpdGGAqBwAQ_s">Unnamed Final State : Final State</option>
+<option value="shape|84.0|112.0|80.0|40.0|State2_bcURpdGGAqBwAQ_N.html|State2_bcURpdGGAqBwAQ_N.html|bcURpdGGAqBwAQ.M" id="optionbcURpdGGAqBwAQ.M">idle : State</option>
+<option value="shape|2.0|122.0|20.0|20.0|InitialPseudoState_2s16pdGGAqBwAQ95.html|InitialPseudoState_2s16pdGGAqBwAQ95.html|2s16pdGGAqBwAQ94" id="option2s16pdGGAqBwAQ94">Unnamed Initial Pseudo State : Initial Pseudo State</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/sistem_informasi_perpustakaan.png" usemap="#diagram_map" class="Image" width="1073" height="584"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="22.0, 125.0, 22.0, 139.0, 84.0, 139.0, 84.0, 125.0" coords2="22.0, 125.0, 22.0, 139.0, 84.0, 139.0, 84.0, 125.0" shape="poly" alt=":Transition" id="areadiagram_map_UnAxpdGGAqBwARAX_default" href="Transition2_InAxpdGGAqBwARAW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="164.0, 125.0, 164.0, 139.0, 227.0, 139.0, 227.0, 125.0" coords2="164.0, 125.0, 164.0, 139.0, 227.0, 139.0, 227.0, 125.0" shape="poly" alt=":Transition" id="areadiagram_map_0C9ppdGGAqBwARNQ_default" href="Transition2_389ppdGGAqBwARNP.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="307.0, 125.0, 307.0, 139.0, 500.0, 139.0, 500.0, 125.0" coords2="307.0, 125.0, 307.0, 139.0, 500.0, 139.0, 500.0, 125.0" shape="poly" alt="memasukan username &amp; passowrd:Transition" id="areadiagram_map_lQqZpdGGAqBwARYR_default" href="Transition2_OQqZpdGGAqBwARYQ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="538.0, 42.0, 538.0, 96.0, 552.0, 96.0, 552.0, 42.0" coords2="538.0, 42.0, 538.0, 96.0, 552.0, 96.0, 552.0, 42.0" shape="poly" alt="tidak valid:Transition" id="areadiagram_map__EaZpdGGAqBwARYV_default" href="Transition2_zEaZpdGGAqBwARYU.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="811.0, 121.0, 811.0, 124.068, 811.0, 124.068, 590.0, 124.952, 590.0, 124.952, 590.0, 138.952, 590.0, 138.952, 811.0, 138.068, 811.0, 138.068, 811.0, 284.0, 825.0, 284.0, 825.0, 138.012, 825.0, 138.012, 828.0, 138.0, 828.0, 124.0, 825.0, 124.012, 825.0, 124.012, 825.0, 121.0" coords2="811.0, 121.0, 811.0, 124.068, 811.0, 124.068, 590.0, 124.952, 590.0, 124.952, 590.0, 138.952, 590.0, 138.952, 811.0, 138.068, 811.0, 138.068, 811.0, 284.0, 825.0, 284.0, 825.0, 138.012, 825.0, 138.012, 828.0, 138.0, 828.0, 124.0, 825.0, 124.012, 825.0, 124.012, 825.0, 121.0" shape="poly" alt="valid sebagai user:Transition" id="areadiagram_map_c05ZpdGGAqBwARY1_default" href="Transition2_Q05ZpdGGAqBwARY0.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="538.0, 169.0, 538.0, 284.0, 552.0, 284.0, 552.0, 169.0" coords2="538.0, 169.0, 538.0, 284.0, 552.0, 284.0, 552.0, 169.0" shape="poly" alt="valid sebagai admin:Transition" id="areadiagram_map_swdZpdGGAqBwARZJ_default" href="Transition2_vQdZpdGGAqBwARZI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="811.0, 437.0, 811.0, 518.0, 825.0, 518.0, 825.0, 437.0" coords2="811.0, 437.0, 811.0, 518.0, 825.0, 518.0, 825.0, 437.0" shape="poly" alt="buku tersedia:Transition" id="areadiagram_map_Z2c5pdGGAqBwARZv_default" href="Transition2_m2c5pdGGAqBwARZu.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="858.0, 406.0, 858.0, 420.0, 989.0, 420.0, 989.0, 406.0" coords2="858.0, 406.0, 858.0, 420.0, 989.0, 420.0, 989.0, 406.0" shape="poly" alt="buku tidak tersedia:Transition" id="areadiagram_map_GA95pdGGAqBwARaq_default" href="Transition2_UA95pdGGAqBwARap.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="811.0, 324.0, 811.0, 382.0, 825.0, 382.0, 825.0, 324.0" coords2="811.0, 324.0, 811.0, 382.0, 825.0, 382.0, 825.0, 324.0" shape="poly" alt="memasukan ID buku:Transition" id="areadiagram_map_kMD5pdGGAqBwARa0_default" href="Transition2_30D5pdGGAqBwARaz.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="536.0, 324.0, 536.0, 389.0, 550.0, 389.0, 550.0, 324.0" coords2="536.0, 324.0, 536.0, 389.0, 550.0, 389.0, 550.0, 324.0" shape="poly" alt="verifikasi peminjaman buku:Transition" id="areadiagram_map_D6ElpdGGAqBwAReP_default" href="Transition2_x6ElpdGGAqBwAReO.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="680.0, 298.0, 680.0, 301.0, 585.0, 301.0, 585.0, 315.0, 680.0, 315.0, 680.0, 396.0, 694.0, 396.0, 694.0, 315.0, 697.0, 315.0, 697.0, 301.0, 694.0, 301.0, 694.0, 298.0" coords2="680.0, 298.0, 680.0, 301.0, 585.0, 301.0, 585.0, 315.0, 680.0, 315.0, 680.0, 396.0, 694.0, 396.0, 694.0, 315.0, 697.0, 315.0, 697.0, 301.0, 694.0, 301.0, 694.0, 298.0" shape="poly" alt="verifikasi pengembalian buku:Transition" id="areadiagram_map_hXklpdGGAqBwAReT_default" href="Transition2_yXklpdGGAqBwAReS.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="377.0, 301.0, 377.0, 304.0, 374.0, 304.0, 374.0, 318.0, 377.0, 318.0, 377.0, 397.0, 391.0, 397.0, 391.0, 318.0, 505.0, 318.0, 505.0, 304.0, 391.0, 304.0, 391.0, 301.0" coords2="377.0, 301.0, 377.0, 304.0, 374.0, 304.0, 374.0, 318.0, 377.0, 318.0, 377.0, 397.0, 391.0, 397.0, 391.0, 318.0, 505.0, 318.0, 505.0, 304.0, 391.0, 304.0, 391.0, 301.0" shape="poly" alt="menghapus ,menambah, mengganti data buku:Transition" id="areadiagram_map_AgKlpdGGAqBwAReX_default" href="Transition2_7AKlpdGGAqBwAReW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="680.0, 451.0, 680.0, 534.0, 236.0, 534.0, 236.0, 548.0, 680.0, 548.0, 680.0, 551.0, 694.0, 551.0, 694.0, 548.0, 697.0, 548.0, 697.0, 534.0, 694.0, 534.0, 694.0, 451.0" coords2="680.0, 451.0, 680.0, 534.0, 236.0, 534.0, 236.0, 548.0, 680.0, 548.0, 680.0, 551.0, 694.0, 551.0, 694.0, 548.0, 697.0, 548.0, 697.0, 534.0, 694.0, 534.0, 694.0, 451.0" shape="poly" alt=":Transition" id="areadiagram_map_6d3VpdGGAqBwAR6._default" href="Transition2_kd3VpdGGAqBwAR69.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="530.0, 444.0, 530.0, 478.10242, 530.0, 478.10242, 232.04457, 479.8973, 232.04457, 479.8973, 232.04457, 479.8973, 232.04457, 479.8973, 232.04457, 479.8973, 232.04457, 479.8973, 232.0, 477.0, 218.0, 477.0, 218.04587, 479.98166, 218.04587, 479.98166, 215.0, 480.0, 215.0, 494.0, 218.26123, 493.98035, 218.26123, 493.98035, 218.83076, 531.0, 232.83076, 531.0, 232.25993, 493.89603, 232.25993, 493.89603, 530.0, 492.10242, 530.0, 492.10242, 530.0, 492.10242, 530.0, 492.10242, 530.0, 495.0, 544.0, 495.0, 544.0, 492.01807, 544.0, 492.01807, 547.0, 492.0, 547.0, 478.0, 544.0, 478.01807, 544.0, 478.01807, 544.0, 444.0" coords2="530.0, 444.0, 530.0, 478.10242, 530.0, 478.10242, 232.04457, 479.8973, 232.04457, 479.8973, 232.04457, 479.8973, 232.04457, 479.8973, 232.04457, 479.8973, 232.04457, 479.8973, 232.0, 477.0, 218.0, 477.0, 218.04587, 479.98166, 218.04587, 479.98166, 215.0, 480.0, 215.0, 494.0, 218.26123, 493.98035, 218.26123, 493.98035, 218.83076, 531.0, 232.83076, 531.0, 232.25993, 493.89603, 232.25993, 493.89603, 530.0, 492.10242, 530.0, 492.10242, 530.0, 492.10242, 530.0, 492.10242, 530.0, 495.0, 544.0, 495.0, 544.0, 492.01807, 544.0, 492.01807, 547.0, 492.0, 547.0, 478.0, 544.0, 478.01807, 544.0, 478.01807, 544.0, 444.0" shape="poly" alt=":Transition" id="areadiagram_map_8hvVpdGGAqBwAR7k_default" href="Transition2_EhvVpdGGAqBwAR7j.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="377.0, 437.0, 377.0, 460.0, 189.0, 460.0, 189.0, 457.0, 175.0, 457.0, 175.0, 460.0, 172.0, 460.0, 172.0, 474.0, 175.0, 474.0, 175.0, 537.0, 172.0, 537.0, 172.0, 551.0, 175.0, 551.0, 175.0, 554.0, 189.0, 554.0, 189.0, 551.0, 199.92857, 551.0, 200.0, 552.0, 206.75, 551.0, 216.0, 551.0, 216.0, 535.4815, 216.0, 535.4815, 205.75, 537.0, 189.0, 537.0, 189.0, 474.0, 377.0, 474.0, 377.0, 477.0, 391.0, 477.0, 391.0, 474.0, 394.0, 474.0, 394.0, 460.0, 391.0, 460.0, 391.0, 437.0" coords2="377.0, 437.0, 377.0, 460.0, 189.0, 460.0, 189.0, 457.0, 175.0, 457.0, 175.0, 460.0, 172.0, 460.0, 172.0, 474.0, 175.0, 474.0, 175.0, 537.0, 172.0, 537.0, 172.0, 551.0, 175.0, 551.0, 175.0, 554.0, 189.0, 554.0, 189.0, 551.0, 199.92857, 551.0, 200.0, 552.0, 206.75, 551.0, 216.0, 551.0, 216.0, 535.4815, 216.0, 535.4815, 205.75, 537.0, 189.0, 537.0, 189.0, 474.0, 377.0, 474.0, 377.0, 477.0, 391.0, 477.0, 391.0, 474.0, 394.0, 474.0, 394.0, 460.0, 391.0, 460.0, 391.0, 437.0" shape="poly" alt=":Transition" id="areadiagram_map_iFg1pdGGAqBwAR8m_default" href="Transition2_UFg1pdGGAqBwAR8l.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="219.0, 551.0, 219.0, 573.0, 216.0, 573.0, 216.0, 587.0, 219.0, 587.0, 219.0, 590.0, 233.0, 590.0, 233.0, 587.0, 810.0, 587.0, 810.0, 590.0, 824.0, 590.0, 824.0, 587.0, 827.0, 587.0, 827.0, 573.0, 824.0, 573.0, 824.0, 564.0, 810.0, 564.0, 810.0, 573.0, 233.0, 573.0, 233.0, 551.0" coords2="219.0, 551.0, 219.0, 573.0, 216.0, 573.0, 216.0, 587.0, 219.0, 587.0, 219.0, 590.0, 233.0, 590.0, 233.0, 587.0, 810.0, 587.0, 810.0, 590.0, 824.0, 590.0, 824.0, 587.0, 827.0, 587.0, 827.0, 573.0, 824.0, 573.0, 824.0, 564.0, 810.0, 564.0, 810.0, 573.0, 233.0, 573.0, 233.0, 551.0" shape="poly" alt=":Transition" id="areadiagram_map_X8M1pdGGAqBwAR_q_default" href="Transition2_r8M1pdGGAqBwAR_p.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="390.0, 347.0, 390.0, 350.0, 387.0, 350.0, 387.0, 364.0, 390.0, 364.0, 390.0, 397.0, 404.0, 397.0, 404.0, 364.0, 460.0, 364.0, 460.0, 410.0, 427.0, 410.0, 427.0, 424.0, 460.0, 424.0, 460.0, 427.0, 474.0, 427.0, 474.0, 424.0, 477.0, 424.0, 477.0, 410.0, 474.0, 410.0, 474.0, 364.0, 477.0, 364.0, 477.0, 350.0, 474.0, 350.0, 474.0, 347.0, 460.0, 347.0, 460.0, 350.0, 404.0, 350.0, 404.0, 347.0" coords2="390.0, 347.0, 390.0, 350.0, 387.0, 350.0, 387.0, 364.0, 390.0, 364.0, 390.0, 397.0, 404.0, 397.0, 404.0, 364.0, 460.0, 364.0, 460.0, 410.0, 427.0, 410.0, 427.0, 424.0, 460.0, 424.0, 460.0, 427.0, 474.0, 427.0, 474.0, 424.0, 477.0, 424.0, 477.0, 410.0, 474.0, 410.0, 474.0, 364.0, 477.0, 364.0, 477.0, 350.0, 474.0, 350.0, 474.0, 347.0, 460.0, 347.0, 460.0, 350.0, 404.0, 350.0, 404.0, 347.0" shape="poly" alt=":Transition" id="areadiagram_map_4bC1pdGGAqBwASAu_default" href="Transition2_nrC1pdGGAqBwASAt.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="375, 99, 487, 211" coords2="375, 99, 487, 211" shape="rect" alt=":Freehand Shape" id="areadiagram_map_gl9lpdGGAqBwARfA_default" href="ShapeEditorShape_gl9lpdGGAqBwARfB.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="635, 396, 715, 451" coords2="635, 396, 715, 451" shape="rect" alt="buku dikembalikan:State" id="areadiagram_map_xSUFpdGGAqBwARcx_default" href="State2_xSUFpdGGAqBwARcy.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="347, 397, 427, 437" coords2="347, 397, 427, 437" shape="rect" alt="edit data buku:State" id="areadiagram_map_27kFpdGGAqBwARco_default" href="State2_27kFpdGGAqBwARcp.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="505, 389, 585, 444" coords2="505, 389, 585, 444" shape="rect" alt="buku dipinjamkan:State" id="areadiagram_map_Q6kFpdGGAqBwARcf_default" href="State2_Q6kFpdGGAqBwARcg.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="989, 389, 1069, 444" coords2="989, 389, 1069, 444" shape="rect" alt="pesan buku tidak tersedia:State" id="areadiagram_map_T9e5pdGGAqBwARaN_default" href="State2_T9e5pdGGAqBwARaO.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="777, 518, 858, 564" coords2="777, 518, 858, 564" shape="rect" alt="konfirmasi peminjaman buku:State" id="areadiagram_map_LvE5pdGGAqBwARZo_default" href="State2_LvE5pdGGAqBwARZp.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="778, 382, 858, 437" coords2="778, 382, 858, 437" shape="rect" alt="ID buku ditemukan:State" id="areadiagram_map_fN_ZpdGGAqBwARZd_default" href="State2_fN_ZpdGGAqBwARZe.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="500, 96, 590, 169" coords2="500, 96, 590, 169" shape="rect" alt="validasi:Choice" id="areadiagram_map_xVCZpdGGAqBwARX6_default" href="Choice_xVCZpdGGAqBwARX7.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="562, 123, 576, 247" coords2="562, 123, 576, 247" shape="rect" alt=":Freehand Shape" id="areadiagram_map_Jv.ppdGGAqBwARMF_default" href="ShapeEditorShape_Jv_ppdGGAqBwARMG.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="510, 2, 590, 42" coords2="510, 2, 590, 42" shape="rect" alt="invalid login:State" id="areadiagram_map__5AJpdGGAqBwARER_default" href="State2__5AJpdGGAqBwARES.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="227, 112, 307, 152" coords2="227, 112, 307, 152" shape="rect" alt="login:State" id="areadiagram_map_.GHxpdGGAqBwARDo_default" href="State2__GHxpdGGAqBwARDp.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="505, 284, 585, 324" coords2="505, 284, 585, 324" shape="rect" alt="admin:State" id="areadiagram_map_z2yxpdGGAqBwARB8_default" href="State2_z2yxpdGGAqBwARB9.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="778, 284, 858, 324" coords2="778, 284, 858, 324" shape="rect" alt="user:State" id="areadiagram_map_LsSxpdGGAqBwARBz_default" href="State2_LsSxpdGGAqBwARB0.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="216, 531, 236, 551" coords2="216, 531, 236, 551" shape="rect" alt=":Final State" id="areadiagram_map_TELRpdGGAqBwAQ_s_default" href="FinalState2_TELRpdGGAqBwAQ_t.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="84, 112, 164, 152" coords2="84, 112, 164, 152" shape="rect" alt="idle:State" id="areadiagram_map_bcURpdGGAqBwAQ.M_default" href="State2_bcURpdGGAqBwAQ_N.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="2, 122, 22, 142" coords2="2, 122, 22, 142" shape="rect" alt=":Initial Pseudo State" id="areadiagram_map_2s16pdGGAqBwAQ94_default" href="InitialPseudoState_2s16pdGGAqBwAQ95.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/FreehandShapes.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/FreehandShapes.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ShapeEditorShape_gl9lpdGGAqBwARfB.html" class="ItemLink">N/A : Freehand Shape</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_xSUFpdGGAqBwARcy.html" class="ItemLink">buku dikembalikan : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_27kFpdGGAqBwARcp.html" class="ItemLink">edit data buku : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_Q6kFpdGGAqBwARcg.html" class="ItemLink">buku dipinjamkan : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_T9e5pdGGAqBwARaO.html" class="ItemLink">pesan buku tidak tersedia : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_LvE5pdGGAqBwARZp.html" class="ItemLink">konfirmasi peminjaman buku : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_fN_ZpdGGAqBwARZe.html" class="ItemLink">ID buku ditemukan : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Choice.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Choice.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Choice_xVCZpdGGAqBwARX7.html" class="ItemLink">validasi : Choice</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/FreehandShapes.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/FreehandShapes.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ShapeEditorShape_Jv_ppdGGAqBwARMG.html" class="ItemLink">N/A : Freehand Shape</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2__5AJpdGGAqBwARES.html" class="ItemLink">invalid login : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2__GHxpdGGAqBwARDp.html" class="ItemLink">login : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_z2yxpdGGAqBwARB9.html" class="ItemLink">admin : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_LsSxpdGGAqBwARB0.html" class="ItemLink">user : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/FinalState.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/FinalState.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="FinalState2_TELRpdGGAqBwAQ_t.html" class="ItemLink">N/A : Final State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/State.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/State.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="State2_bcURpdGGAqBwAQ_N.html" class="ItemLink">idle : State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/InitialPseudoState.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/InitialPseudoState.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="InitialPseudoState_2s16pdGGAqBwAQ95.html" class="ItemLink">N/A : Initial Pseudo State</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		sistem_informasi_perpustakaan	</div>
+</body>
+</html>
